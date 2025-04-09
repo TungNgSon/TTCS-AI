@@ -1,40 +1,32 @@
 import streamlit as st
-import whisper
-from transformers import pipeline
+from transformers import T5ForConditionalGeneration, T5Tokenizer
+import torch
+
+st.set_page_config(page_title="Grammar Correction App", layout="centered")
+st.title("📝 Grammar Correction App")
 
 # Load mô hình
 @st.cache_resource
-def load_models():
-    whisper_model = whisper.load_model("base")
-    grammar_corrector = pipeline("text2text-generation", model="vennify/t5-base-grammar-correction")
-    return whisper_model, grammar_corrector
+def load_model():
+    model = T5ForConditionalGeneration.from_pretrained("vennify/t5-base-grammar-correction")
+    tokenizer = T5Tokenizer.from_pretrained("vennify/t5-base-grammar-correction")
+    return model, tokenizer
 
-whisper_model, grammar_corrector = load_models()
+model, tokenizer = load_model()
 
-st.title("🎤 Chatbot chỉnh ngữ pháp từ âm thanh hoặc văn bản")
+# Giao diện nhập liệu
+input_text = st.text_area("✍️ Nhập đoạn văn tiếng Anh bạn muốn sửa ngữ pháp:", height=150)
 
-# Chọn chế độ
-option = st.selectbox("Bạn muốn làm gì?", ["🎧 Upload file âm thanh", "✍️ Nhập văn bản"])
+if st.button("🔧 Sửa ngữ pháp"):
+    if not input_text.strip():
+        st.warning("Vui lòng nhập một đoạn văn bản trước khi nhấn sửa.")
+    else:
+        input_text = "grammar: " + input_text
 
-if option == "🎧 Upload file âm thanh":
-    uploaded_file = st.file_uploader("Tải lên file âm thanh (.wav hoặc .mp3)", type=["wav", "mp3"])
-    if uploaded_file is not None:
-        with open("temp.wav", "wb") as f:
-            f.write(uploaded_file.read())
-        with st.spinner("🔍 Đang nhận diện giọng nói..."):
-            result = whisper_model.transcribe("temp.wav")
-            transcribed_text = result["text"]
-            st.text_area("📝 Văn bản nhận diện được:", transcribed_text, height=100)
-        with st.spinner("🛠️ Đang chỉnh ngữ pháp..."):
-            corrected = grammar_corrector("grammar: " + transcribed_text)[0]["generated_text"]
-            st.text_area("✅ Văn bản sau khi chỉnh:", corrected, height=100)
+        input_ids = tokenizer.encode(input_text, return_tensors="pt", max_length=512, truncation=True)
+        with torch.no_grad():
+            outputs = model.generate(input_ids, max_length=512, num_beams=4, early_stopping=True)
+        corrected_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-elif option == "✍️ Nhập văn bản":
-    user_input = st.text_area("Nhập câu bạn muốn chỉnh ngữ pháp:", height=100)
-    if st.button("🛠️ Chỉnh ngữ pháp"):
-        if user_input.strip() == "":
-            st.warning("⚠️ Vui lòng nhập văn bản.")
-        else:
-            with st.spinner("🛠️ Đang chỉnh ngữ pháp..."):
-                corrected = grammar_corrector("grammar: " + user_input)[0]["generated_text"]
-                st.text_area("✅ Văn bản sau khi chỉnh:", corrected, height=100)
+        st.success("✅ Đoạn văn đã được sửa:")
+        st.write(corrected_text)
