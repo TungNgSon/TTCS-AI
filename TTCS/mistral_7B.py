@@ -8,7 +8,7 @@ llm = Llama(model_path=model_path, n_ctx=2048)  # n_ctx là độ dài context t
 
 # Bắt đầu hỏi đáp
 while True:
-    user_input = input("Bạn: ")
+    user_input = input("Find grammar error in: ")
     if user_input.lower() in ["exit", "quit", "bye"]:
         print("Tạm biệt!")
         break
