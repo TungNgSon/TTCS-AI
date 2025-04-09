@@ -1,8 +1,0 @@
-streamlit
-streamlit-audio-recorder
-openai-whisper @ git+https://github.com/openai/whisper.git@517a43ecd132a2089d85f4ebc044728a71d49f6e
-torch==2.6.0
-transformers==4.51.0
-sentencepiece==0.2.0
-pandas==2.2.3
-numpy==2.1.3

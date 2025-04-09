@@ -4,6 +4,7 @@ import wave
 import whisper
 from happytransformer import HappyTextToText, TTSettings
 
+
 # ---------------------------
 # Cấu hình
 FORMAT = pyaudio.paInt16
