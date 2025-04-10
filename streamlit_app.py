@@ -6,7 +6,7 @@ st.set_page_config(page_title="Grammar Correction App", layout="centered")
 st.title("📝 Grammar Correction App")
 
 # Load mô hình
-@st.cache(allow_output_mutation=True)
+@st.cache_resource
 def load_model():
     model = T5ForConditionalGeneration.from_pretrained("vennify/t5-base-grammar-correction")
     tokenizer = T5Tokenizer.from_pretrained("vennify/t5-base-grammar-correction")
