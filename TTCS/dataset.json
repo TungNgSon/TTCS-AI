@@ -1,0 +1,22 @@
+[
+  {"input_text": "He go to school.", "target_text": "He goes to school."},
+  {"input_text": "She dont like apples.", "target_text": "She doesn't like apples."},
+  {"input_text": "I can plays guitar.", "target_text": "I can play guitar."},
+  {"input_text": "They is going to the market.", "target_text": "They are going to the market."},
+  {"input_text": "She run faster than me.", "target_text": "She runs faster than me."},
+  {"input_text": "I am studying at library.", "target_text": "I am studying at the library."},
+  {"input_text": "He is the bestest player in the team.", "target_text": "He is the best player in the team."},
+  {"input_text": "This book is more better than that one.", "target_text": "This book is better than that one."},
+  {"input_text": "I will can do it.", "target_text": "I will be able to do it."},
+  {"input_text": "She don't have any pets.", "target_text": "She doesn't have any pets."},
+  {"input_text": "I seen the movie yesterday.", "target_text": "I saw the movie yesterday."},
+  {"input_text": "They are learning English since 2015.", "target_text": "They have been learning English since 2015."},
+  {"input_text": "She was late but she catch the bus.", "target_text": "She was late, but she caught the bus."},
+  {"input_text": "It was raining heavily when I leaves the house.", "target_text": "It was raining heavily when I left the house."},
+  {"input_text": "I was the first one who arrive.", "target_text": "I was the first one to arrive."},
+  {"input_text": "She don’t know how to swimming.", "target_text": "She doesn’t know how to swim."},
+  {"input_text": "I could do it today.", "target_text": "I can do it today."},
+  {"input_text": "I have visited him since 5 years.", "target_text": "I have been visiting him for 5 years."},
+  {"input_text": "The books on the table is very old.", "target_text": "The books on the table are very old."},
+  {"input_text": "I am not sure if he will comes.", "target_text": "I am not sure if he will come."}
+]
